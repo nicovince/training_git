@@ -1,5 +1,40 @@
-1. Commit
+1. status
 
-Editer le fichier foo.txt et repondez à la question
+git status
+
+Rien n'a été modifié, la copie de travail (working copy) est propre (clean).
+
+Editez le fichier foo.txt et repondez à la premiere question, sauvegardez.
 
 git status 
+
+le fichier apparait comme étant modifié, mais les modifications apportés ne sont pas encore portés dans la staging area
+
+Mettez vos modifications apportés à foo.txt dans la stating area :
+
+git add foo.txt
+
+git status
+
+Le fichier est toujours modifié, mais est désormais dans la staging area qui contient tout ce qui part dans le prochain commit
+
+Si à cette étape vous modifier à nouveau le fichier foo.txt, pour réagir à la 2ème phrase par exemple, git status vous dira alors qu'il est modifié en deux parties : une partie dans la staging area, une autre qui n'y est pas et ne fera pas parti du prochain commit.
+
+Pour voir ce qui va partir dans le prochain commit :
+git diff --cached
+
+Pour voir ce que vous avez modifié depuis le dernier git add
+git diff
+
+
+2. commit
+git commit -m "Vim Power, Bonjour Margueritte"
+Dans ce cas là, le message passé entre guillemets formera le titre du commit, sans message.
+
+git commit
+Un editeur de texte s'ouvre et vous pourrez renseigner le titre du commit sur la première ligne et le détail du commit à partir de la 3ème ligne.
+(git log permet de selectionner le titre ou le detail du commit)
+
+oops, vous avez mis un message de commit pourri
+git commit --amend
+git commit --amend "un message de commit un peu mieux"
