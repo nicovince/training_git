@@ -111,4 +111,10 @@ Répondez à la question 4, et commitez.
 
 Retournez dans la branche master
 git checkout master
-Répondez à la question 5 et commitez (
+Répondez à la question 5 et commitez (sur la branche master !)
+
+pour voir la liste des branches qui n'ont pas encore été mergée sur la branche courante :
+git branch --no-merged
+pratique pour savoir ce qu'il reste à merger, du coup on merge wtf_sncf :
+git merge wtf_sncf
+un editeur se lance pour que vous validiez le message du commit de merge, sauvegardez, quitter, le merge est fait.
