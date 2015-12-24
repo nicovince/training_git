@@ -118,3 +118,13 @@ git branch --no-merged
 pratique pour savoir ce qu'il reste à merger, du coup on merge wtf_sncf :
 git merge wtf_sncf
 un editeur se lance pour que vous validiez le message du commit de merge, sauvegardez, quitter, le merge est fait.
+
+5.3 cas avec un conflit
+On crée une branche
+On se déplace sur cette branche (bonus pour ceux qui font cette étape et la précédente en une commande)
+On répond à la question 6
+On commit
+On retourne sur la branche master
+On répond à la question 6 (une autre réponse)
+On commit 
+Et on merge la branche créée dans master.
