@@ -55,6 +55,13 @@ git grep vache
 Par défaut, il cherche dans les fichiers indexés (tracked), il suffit d'ajouter --untracked pour chercher dans les fichiers non indexés.
 
 4. log
-C'est dans quel commit que j'ai fixé le bug 3615 ?
+C'est dans quel commit que j'ai fixé le bug 3615 ? Je sais que j'ai mis le numéro de bug dans le message de commit
 git log --grep 3615
 
+C'est quoi les 10 derniers commits ?
+git log -10
+et les 20 derniers ?
+git log -20
+
+C'est dans quel commit où je me suis mis à parler de vache dans un des fichiers indexés ?
+git log -S vache
