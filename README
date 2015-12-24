@@ -78,7 +78,7 @@ entre autres :
 - voir les differences apportés -p
 
 
-5. branch
+5. branch et merge
 Pour créer une branche, pour traiter un bug par exemple, sans déranger la branche master :
 git branch hotfix_3617
 Cette commande ne fait que créer la branche, vous êtes toujours sur la branche master, pour vous en assurer :
@@ -92,3 +92,9 @@ La branche a été crée à partir de l'endroit où vous étiez.
 Fixez le bug en répondant à la 3ème question
 commitez le bugfix dans la branche hotfix_3617
 git commit -am "bugfix 3617 : my boss could not figure that out"
+
+Rien de plus simple, on commence par aller dans la branche dans laquelle on veut merger, dans notre cas, on veut que la branche master contienne le bugfix 3617 :
+git checkout master
+et on merge la branche qui contient le bugfix :
+git merge hotfix_3617
+et voilà !
