@@ -132,3 +132,9 @@ Et on merge la branche créée dans master.
 Si tout s'est bien passé, vous avez un conflit. Editez le fichier pour choisir la résolution (des marqueurs <<<<<< ====== >>>>>> sont présents pour aider à localiser le conflit), sauvegardez quittez.
 Pour marquer le fichier comme résolu auprès de git on fait un git add.
 Et on commit, le message de commit de merge indique les fichiers en conflits, vous pouvez indiquer comment vous avez résolu le conflit.
+
+
+6. rebase
+on crée une branche dans laquelle on répond à la question 7, on commit.
+on retourne dans master, on répond à la question 8, on commit.
+on retourne dans la branche crée et on va faire le rebase
