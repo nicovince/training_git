@@ -98,3 +98,4 @@ git checkout master
 et on merge la branche qui contient le bugfix :
 git merge hotfix_3617
 et voilà !
+L'opération de merge a fait un fast forward car il n'y a eu aucune modification sur la branche master à partir du moment où la branche hotfix_3617 a été crée, le merge est donc trivial et consiste à déplacer le pointeur de branche master au niveau du pointeur de branche
