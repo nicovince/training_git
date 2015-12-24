@@ -102,7 +102,7 @@ et voilà !
 L'opération de merge a fait un fast forward car il n'y a eu aucune modification sur la branche master à partir du moment où la branche hotfix_3617 a été crée, le merge est donc trivial et consiste à déplacer le pointeur de branche master au niveau du pointeur de branche
 
 
-5.1 cas moins simple
+5.2 cas moins simple
 Voyons le cas du merge où il y a eu des modifications sur la branche dans laquelle on merge depuis que la branche mergée a été créée.
 Creation de la branche et positionnement sur cette branche, car je préfère taper une seule commande plutot que deux ( git branch + git checkout)
 git checkout -b wtf_sncf
