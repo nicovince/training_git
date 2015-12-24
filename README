@@ -49,10 +49,12 @@ git commit --amend
 Attention, l'option --amend, modifie l'historique
 Si vous avez fait un amend, faites un nouveau git log -1 et vous verrez que l'identifiant du commit n'est plus le même.
 
+
 3. grep
 C'est dans quel fichier que je me suis mis à parler de vache ?
 git grep vache
 Par défaut, il cherche dans les fichiers indexés (tracked), il suffit d'ajouter --untracked pour chercher dans les fichiers non indexés.
+
 
 4. log
 C'est dans quel commit que j'ai fixé le bug 3615 ? Je sais que j'ai mis le numéro de bug dans le message de commit
@@ -65,3 +67,12 @@ git log -20
 
 C'est dans quel commit où je me suis mis à parler de vache dans un des fichiers indexés ?
 git log -S vache
+
+Il existe beaucoup d'autres options détaillées dans l'aide de la commande log
+git help log
+entre autres :
+- afficher les logs à partir/avant/entre certaines dates
+- afficher seulement certaines infos (sha1 reduit + titre) --oneline
+- chercher par auteur --author
+- voir les noms des fichiers modifiés --name-only
+- voir les differences apportés -p
