@@ -79,6 +79,7 @@ entre autres :
 
 
 5. branch et merge
+5.1 cas simple
 Pour créer une branche, pour traiter un bug par exemple, sans déranger la branche master :
 git branch hotfix_3617
 Cette commande ne fait que créer la branche, vous êtes toujours sur la branche master, pour vous en assurer :
@@ -99,3 +100,15 @@ et on merge la branche qui contient le bugfix :
 git merge hotfix_3617
 et voilà !
 L'opération de merge a fait un fast forward car il n'y a eu aucune modification sur la branche master à partir du moment où la branche hotfix_3617 a été crée, le merge est donc trivial et consiste à déplacer le pointeur de branche master au niveau du pointeur de branche
+
+
+5.1 cas moins simple
+Voyons le cas du merge où il y a eu des modifications sur la branche dans laquelle on merge depuis que la branche mergée a été créée.
+Creation de la branche et positionnement sur cette branche, car je préfère taper une seule commande plutot que deux ( git branch + git checkout)
+git checkout -b wtf_sncf
+le flag -b permet de creer la branche, la commande checkout permet de se rendre sur la branche.
+Répondez à la question 4, et commitez.
+
+Retournez dans la branche master
+git checkout master
+Répondez à la question 5 et commitez (
