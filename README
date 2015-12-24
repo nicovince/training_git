@@ -76,3 +76,19 @@ entre autres :
 - chercher par auteur --author
 - voir les noms des fichiers modifiés --name-only
 - voir les differences apportés -p
+
+
+5. branch
+Pour créer une branche, pour traiter un bug par exemple, sans déranger la branche master :
+git branch hotfix_3617
+Cette commande ne fait que créer la branche, vous êtes toujours sur la branche master, pour vous en assurer :
+git branch # une petite étoile devant la branche courante
+git status # sur la première ligne, votre branche courante est indiquée.
+
+Pour aller sur cette branche :
+git checkout hotfix_3617
+
+La branche a été crée à partir de l'endroit où vous étiez.
+Fixez le bug en répondant à la 3ème question
+commitez le bugfix dans la branche hotfix_3617
+git commit -am "bugfix 3617 : my boss could not figure that out"

@@ -1,5 +1,8 @@
 1. Quel editeur de texte utilisez vous ?
 ->
 
-2. Je viens de voir passer une vache
+2. Je viens de voir passer une vache, vous en pensez quoi ?
+->
+
+3. Quelle est à couleur du cheval blanc d'Henri IV (bug 3617)
 ->
