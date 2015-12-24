@@ -52,3 +52,4 @@ Si vous avez fait un amend, faites un nouveau git log -1 et vous verrez que l'id
 3. grep
 C'est dans quel fichier que je me suis mis à parler de vache ?
 git grep vache
+Par défaut, il cherche dans les fichiers indexés (tracked), il suffit d'ajouter --untracked pour chercher dans les fichiers non indexés.
