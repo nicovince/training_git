@@ -35,6 +35,20 @@ git commit
 Un editeur de texte s'ouvre et vous pourrez renseigner le titre du commit sur la première ligne et le détail du commit à partir de la 3ème ligne.
 (git log permet de selectionner le titre ou le detail du commit)
 
+git log -1
+et vous verrez le dernier commit avec les infos de base (identifiant du commit, auteur, date, titre et message de commit)
+
 oops, vous avez mis un message de commit pourri
 git commit --amend
 git commit --amend "un message de commit un peu mieux"
+
+oops, j'ai oublié de commiter un fichier
+git add foo.txt
+git commit --amend
+
+Attention, l'option --amend, modifie l'historique
+Si vous avez fait un amend, faites un nouveau git log -1 et vous verrez que l'identifiant du commit n'est plus le même.
+
+3. grep
+C'est dans quel fichier que je me suis mis à parler de vache ?
+git grep vache
