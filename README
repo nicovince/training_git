@@ -215,3 +215,7 @@ Petite subitlité, en clonant, le dépot origin est configuré pour pointer vers
 git push origin master:master
 ou
 git push
+Du coup, dans le repertoire de départ on peut récupérer les dernières modifications apportées par le dépot training_git_martian
+git fetch jupiter
+A ce moment, les modifications ne sont pas encore visible sur les fichiers locaux mais ils sont présents sur le dépot local. Pour les récupérer :
+git merge jupiter/master
