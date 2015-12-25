@@ -135,6 +135,7 @@ Et on commit, le message de commit de merge indique les fichiers en conflits, vo
 
 
 6. rebase
+6.1 rebase classique
 on crée une branche sans s'y positionner
 git branch test_rebase
 Dans la branche master, on répond à la question 7, on commit.
@@ -143,4 +144,19 @@ git checkout test_rebase et on répond à la question 8, et on commit.
 Et on rebase.
 git rebase master
 Pour rappel, le rebase de la branche courante sur la branche master va modifier les commits pour faire comme si vous aviez travaillez sur la branche master (pas de divergence dans l'historique).
+Du coup si on retourne dans master et que l'on merge on aura droit à un merge simple fast-forward
+git checkout master; git merge test_rebase
 
+6.2 rebase interactif
+L'idée est de reconstuire l'historique pour faire plein de choses exotiques, dans l'exemple que je donne je reste sobre et je me contente d'inverser les deux commits où l'on a répondu à la question 7 et à la question 8
+Tout d'abord il faut trouver l'identifiant du dernier commit que l'on ne veut pas toucher, si lors de la partie sur le rebase classique vous n'avez fait qu'un seul commit sur chaque branche (un sur master, un sur test_rebase) le dernier commit peut se trouver de façon suivante :
+git log HEAD~2 -1
+Explications :
+log : afficher les logs
+HEAD~2 : HEAD est le dernier commit et ~2 désigne le 2ème ancêtre, la notation ~n peut s'utiliser sur un nom de branche, un tag, un sha, on peut même faire HEAD~1~1 (équivalent à HEAD~2)
+-1 : n'afficher qu'un seul commit de résultat.
+En résumé on n'affiche le 2ème ancêtre du dernier commit, soit le 3ème dernier commit.
+On passe l'identifiant du commit à rebase
+git rebase <sha_du_commit_qui_ne_sera_pas_modifié_par_le_rebase>
+Pour info, on peut aussi passer à rebase l'expression utilisé dans la commande log :
+git rebase -i HEAD~2
