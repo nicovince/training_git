@@ -212,4 +212,6 @@ Créons un clone du dépot distant dans lequel un martien va travailler (on se m
 git clone training_git_distant training_git_martian
 Et dans cette copie on répond à la question 10, on commit et on pousse.
 Petite subitlité, en clonant, le dépot origin est configuré pour pointer vers training_git_distant
+git push origin master:master
+ou
 git push
