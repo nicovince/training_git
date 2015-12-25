@@ -165,3 +165,10 @@ Inversez les lignes 1 et 2, sauvegardez, quittez
 git log -3
 Les deux derniers commits ont été inversés.
 Les options intéressantes du rebase sont fixup, squash pour merger plusieurs commits, et edit pour s'arrêter sur un commit et le compléter.
+
+
+7 Rollback
+pour défaire des commits, mais garder une trace dans l'historique :
+Mettons que l'on veuille defaire les 2 derniers commits :
+git revert HEAD~2..HEAD
+l'editeur de texte se lance pour editer le message de commit de revert pour chacun des commits à défaire
