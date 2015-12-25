@@ -179,6 +179,7 @@ l'editeur de texte se lance pour editer le message de commit de revert pour chac
 
 
 8. Travail avec un dépôt distant
+8.1
 On va créer un dépôt distant... sur votre machine, le principe reste le même où qu'il se situe
 Mettez vous dans un répertoire qui n'est pas géré par git (ie: le répertoire parent de training_git), et on fait un clone "nu" (--bare)
 git clone --bare training_git training_git_distant
@@ -196,3 +197,19 @@ git branch -a
 Lorsque vous commitez, vous le faites dans vos branches locales, celles qui ne sont pas préfixés par le nom du remote.
 On répond à la question 9, on commit
 git log --oneline --decorate # On affiche l'historique en mettant les branches
+La branche master de jupiter (jupiter/master) n'a pas bougé, c'est normal, avec git tout est local.
+Pour pousser la branche master local vers la branche master de jupiter :
+git push jupiter master:master
+et jupiter a rattrapé son retard.
+dans master:master, le premier master correspond au nom local de la branche que l'on veut pousser, et le deuxième au nom distant.
+
+
+8.2 collaboration
+jupiter/master est une branche pour laquelle vous avez une copie locale (master), si jamais jupiter/master est en avance par rapport à votre copie locale, il faudra la merger avant de pouvoir la pousser.
+
+
+Créons un clone du dépot distant dans lequel un martien va travailler (on se met au même niveau que training_git_distant)
+git clone training_git_distant training_git_martian
+Et dans cette copie on répond à la question 10, on commit et on pousse.
+Petite subitlité, en clonant, le dépot origin est configuré pour pointer vers training_git_distant
+git push
