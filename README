@@ -219,3 +219,15 @@ Du coup, dans le repertoire de départ on peut récupérer les dernières modifi
 git fetch jupiter
 A ce moment, les modifications ne sont pas encore visible sur les fichiers locaux mais ils sont présents sur le dépot local. Pour les récupérer :
 git merge jupiter/master
+
+8.3 pousser une nouvelle branche vers le serveur
+Rien de bien différent par rapport à ce qui a déjà été fait, mettons que vous avez une branche "bug_super_con_que_mon_collegue_ne_sait_pas_corriger", ça fait un peut tâche de pousser cette branche avec ce nom sur le serveur :
+git push jupiter bug_super_con_que_mon_collegue_ne_sait_pas_corriger:bugfix_offbyone
+et la branche bugfix_offbyone apparaitra sur le serveur.
+Le dépot training_git verra la branche jupiter/bugfix_offbyone après un git fetch et pourra se positionner dessus :
+git checkout jupiter/bugfix_offbyone, qui a pour conséquence de créer la branche locale bugfix_offbyone.
+
+8.4 Suppression des branches du serveur
+Supprimer une branche locale, ne la supprime pas du serveur. On supprime une branche du serveur en poussant le néant dans la branche distante :
+git push jupiter :bugfix_offbyone
+Petite disgression, on peut configurer des branches locales pour traquer des branches distantes (option --track lors du checkout d'une branche d'un remote, ou option -u quand on pousse une branche locale vers un dépôt distant). Du coup ça permet de simplifimer la commande de push en ne spécifiant que la branche locale que l'on souhaite pousser. Si d'aventure vos doigts rippent et vous placez un ":" avant le nom de la branche locale, vous vous retrouvez à supprimer la branche du serveur :s Ce n'est pas perdu car votre branche locale est toujours présente, mais c'est à savoir :)
