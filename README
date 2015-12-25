@@ -160,3 +160,8 @@ On passe l'identifiant du commit à rebase
 git rebase <sha_du_commit_qui_ne_sera_pas_modifié_par_le_rebase>
 Pour info, on peut aussi passer à rebase l'expression utilisé dans la commande log :
 git rebase -i HEAD~2
+Dans l'editeur de texte qui apparait, le plus ancien commit se situe sur la première ligne (ordre inversé par rapport à git log).
+Inversez les lignes 1 et 2, sauvegardez, quittez
+git log -3
+Les deux derniers commits ont été inversés.
+Les options intéressantes du rebase sont fixup, squash pour merger plusieurs commits, et edit pour s'arrêter sur un commit et le compléter.
