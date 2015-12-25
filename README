@@ -135,6 +135,12 @@ Et on commit, le message de commit de merge indique les fichiers en conflits, vo
 
 
 6. rebase
-on crée une branche dans laquelle on répond à la question 7, on commit.
-on retourne dans master, on répond à la question 8, on commit.
-on retourne dans la branche crée et on va faire le rebase
+on crée une branche sans s'y positionner
+git branch test_rebase
+Dans la branche master, on répond à la question 7, on commit.
+On va dans la branche test_rebase
+git checkout test_rebase et on répond à la question 8, et on commit.
+Et on rebase.
+git rebase master
+Pour rappel, le rebase de la branche courante sur la branche master va modifier les commits pour faire comme si vous aviez travaillez sur la branche master (pas de divergence dans l'historique).
+
