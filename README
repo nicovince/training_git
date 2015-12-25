@@ -133,6 +133,10 @@ Si tout s'est bien passé, vous avez un conflit. Editez le fichier pour choisir 
 Pour marquer le fichier comme résolu auprès de git on fait un git add.
 Et on commit, le message de commit de merge indique les fichiers en conflits, vous pouvez indiquer comment vous avez résolu le conflit.
 
+5.4 nettoyage des branches
+git branch -d le_nom_de_la_branche_a_effacer
+Si la branche est déjà mergée dans la branche courante, l'opération est faite immédiatement. Si la branche n'est pas encore mergée, il faut mettre -D à la place de -d
+
 
 6. rebase
 6.1 rebase classique
