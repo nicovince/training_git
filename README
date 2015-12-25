@@ -176,3 +176,23 @@ pour défaire des commits, mais garder une trace dans l'historique :
 Mettons que l'on veuille defaire les 2 derniers commits :
 git revert HEAD~2..HEAD
 l'editeur de texte se lance pour editer le message de commit de revert pour chacun des commits à défaire
+
+
+8. Travail avec un dépôt distant
+On va créer un dépôt distant... sur votre machine, le principe reste le même où qu'il se situe
+Mettez vous dans un répertoire qui n'est pas géré par git (ie: le répertoire parent de training_git), et on fait un clone "nu" (--bare)
+git clone --bare training_git training_git_distant
+un coup d'oeil dans training_git_distant, et vous verrez qu'il contient la même chose que training_git/.git
+On retourne dans training_git et on configure ce dépôt pour qu'il puisse accéder au dépôt distant :
+git remote add jupiter ../training_git_distant
+ici jupiter est le nom que j'ai donné au dépôt distant.
+On peut lister les noms des dépôt distants déjà configurés avec :
+git remote show
+Pour récupérer les dernières modifications de jupiter :
+git fetch jupiter
+Que s'est il passé ?
+git a récupéré les branches disponibles sur jupiter dans votre dépôt local :
+git branch -a
+Lorsque vous commitez, vous le faites dans vos branches locales, celles qui ne sont pas préfixés par le nom du remote.
+On répond à la question 9, on commit
+git log --oneline --decorate # On affiche l'historique en mettant les branches
