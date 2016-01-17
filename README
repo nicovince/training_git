@@ -6,13 +6,15 @@ git config --global alias.br branch
 git config --global color.ui true
 git config --global user.name "John Doe"
 git config --global user.email johndoe@sixpack.burp
+
+
 1. status
 
 git status
 
 Rien n'a été modifié, la copie de travail (working copy) est propre (clean).
 
-Editez le fichier foo.txt et repondez à la premiere question, sauvegardez.
+Editez le fichier foo.txt et répondez à la première question, sauvegardez.
 
 git status 
 
@@ -26,12 +28,12 @@ git status
 
 Le fichier est toujours modifié, mais est désormais dans la staging area qui contient tout ce qui part dans le prochain commit
 
-Si à cette étape vous modifier à nouveau le fichier foo.txt, pour réagir à la 2ème phrase par exemple, git status vous dira alors qu'il est modifié en deux parties : une partie dans la staging area, une autre qui n'y est pas et ne fera pas parti du prochain commit.
+Si à cette étape vous modifiez à nouveau le fichier foo.txt, pour réagir à la 2ème phrase par exemple, git status vous dira alors qu'il est modifié en deux parties : une partie dans la staging area, une autre qui n'y est pas et ne fera pas parti du prochain commit.
 
 Pour voir ce qui va partir dans le prochain commit :
 git diff --cached
 
-Pour voir ce que vous avez modifié depuis le dernier git add
+Pour voir ce que vous avez modifié depuis le dernier git add :
 git diff
 
 
@@ -65,7 +67,7 @@ Par défaut, il cherche dans les fichiers indexés (tracked), il suffit d'ajoute
 
 
 4. log
-C'est dans quel commit que j'ai fixé le bug 3615 ? Je sais que j'ai mis le numéro de bug dans le message de commit
+C'est dans quel commit que j'ai corrigé le bug 3615 ? Je sais que j'ai mis le numéro de bug dans le message de commit
 git log --grep 3615
 
 C'est quoi les 10 derniers commits ?
@@ -102,12 +104,12 @@ Fixez le bug en répondant à la 3ème question
 commitez le bugfix dans la branche hotfix_3617
 git commit -am "bugfix 3617 : my boss could not figure that out"
 
-Rien de plus simple, on commence par aller dans la branche dans laquelle on veut merger, dans notre cas, on veut que la branche master contienne le bugfix 3617 :
+Pour merger, on commence par aller dans la branche dans laquelle on veut merger, dans notre cas, on veut que la branche master contienne le bugfix 3617 :
 git checkout master
 et on merge la branche qui contient le bugfix :
 git merge hotfix_3617
 et voilà !
-L'opération de merge a fait un fast forward car il n'y a eu aucune modification sur la branche master à partir du moment où la branche hotfix_3617 a été crée, le merge est donc trivial et consiste à déplacer le pointeur de branche master au niveau du pointeur de branche
+L'opération de merge a fait un fast forward car il n'y a eu aucune modification sur la branche master à partir du moment où la branche hotfix_3617 a été crée, le merge est donc trivial et consiste à déplacer le pointeur de branche master au niveau du pointeur de la branche hotfix_3617
 
 
 5.2 cas moins simple
@@ -125,7 +127,7 @@ pour voir la liste des branches qui n'ont pas encore été mergée sur la branch
 git branch --no-merged
 pratique pour savoir ce qu'il reste à merger, du coup on merge wtf_sncf :
 git merge wtf_sncf
-un editeur se lance pour que vous validiez le message du commit de merge, sauvegardez, quitter, le merge est fait.
+un editeur se lance pour que vous validiez le message du commit de merge, sauvegardez, quittez, le merge est fait.
 
 5.3 cas avec un conflit
 On crée une branche
@@ -183,7 +185,7 @@ Les options intéressantes du rebase sont fixup, squash pour merger plusieurs co
 pour défaire des commits, mais garder une trace dans l'historique :
 Mettons que l'on veuille defaire les 2 derniers commits :
 git revert HEAD~2..HEAD
-l'editeur de texte se lance pour editer le message de commit de revert pour chacun des commits à défaire
+l'editeur de texte se lance pour éditer le message de commit de revert pour chacun des commits à défaire
 
 
 8. Travail avec un dépôt distant
@@ -238,4 +240,4 @@ git checkout jupiter/bugfix_offbyone, qui a pour conséquence de créer la branc
 8.4 Suppression des branches du serveur
 Supprimer une branche locale, ne la supprime pas du serveur. On supprime une branche du serveur en poussant le néant dans la branche distante :
 git push jupiter :bugfix_offbyone
-Petite disgression, on peut configurer des branches locales pour traquer des branches distantes (option --track lors du checkout d'une branche d'un remote, ou option -u quand on pousse une branche locale vers un dépôt distant). Du coup ça permet de simplifimer la commande de push en ne spécifiant que la branche locale que l'on souhaite pousser. Si d'aventure vos doigts rippent et vous placez un ":" avant le nom de la branche locale, vous vous retrouvez à supprimer la branche du serveur :s Ce n'est pas perdu car votre branche locale est toujours présente, mais c'est à savoir :)
+Petite digression, on peut configurer des branches locales pour traquer des branches distantes (option --track lors du checkout d'une branche d'un remote, ou option -u quand on pousse une branche locale vers un dépôt distant). Du coup ça permet de simplifimer la commande de push en ne spécifiant que la branche locale que l'on souhaite pousser. Si d'aventure vos doigts rippent et vous placez un ":" avant le nom de la branche locale, vous vous retrouvez à supprimer la branche du serveur :s Ce n'est pas perdu car votre branche locale est toujours présente, mais c'est à savoir :)

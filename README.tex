@@ -1,0 +1,451 @@
+\documentclass[10pt]{exam}
+%\documentclass[10pt, answers]{exam}
+
+\usepackage{listings}
+\lstset{language=bash}
+\usepackage[T1]{fontenc}
+\usepackage{ucs}
+\usepackage[utf8x]{inputenc}
+\usepackage{amsmath,amssymb}
+\usepackage[frenchb]{babel}
+\usepackage{fullpage}
+\pagestyle{empty}
+
+\title{Git par la pratique}
+\author{Nicolas VINCENT}
+\date{}
+
+\begin{document}
+ \maketitle
+\thispagestyle{empty}
+\begin{questions}
+
+  %\question Donner deux méthodes d'obtention d'un nuage de points surfacique.
+
+  %\begin{solution}[4\bigskipamount]
+  %Acquisition scanner laser, stéréoscopie, capteur de profondeur type kinect.
+  %\end{solution}
+
+\question Config
+\begin{lstlisting}
+git config --global alias.co checkout
+git config --global alias.ci commit
+git config --global alias.st status
+git config --global alias.br branch
+git config --global color.ui true
+git config --global user.name "John Doe"
+git config --global user.email johndoe@sixpack.burp
+\end{lstlisting}
+
+
+\question status
+
+\begin{lstlisting}
+git status
+\end{lstlisting}
+
+Rien n'a été modifié, la copie de travail (working copy) est propre (clean).
+
+Editez le fichier foo.txt et répondez à la première question, sauvegardez.
+
+\begin{lstlisting}
+git status
+\end{lstlisting}
+
+le fichier apparait comme étant modifié, mais les modifications apportés ne sont pas encore portés dans la staging area
+
+Mettez vos modifications apportés à foo.txt dans la stating area :
+
+\begin{lstlisting}
+git add foo.txt
+git status
+\end{lstlisting}
+
+Le fichier est toujours modifié, mais est désormais dans la staging area qui contient tout ce qui part dans le prochain commit
+
+Si à cette étape vous modifiez à nouveau le fichier foo.txt, pour réagir à la 2ème phrase par exemple, \texttt{git status} vous dira alors qu'il est modifié en deux parties : une partie dans la staging area, une autre qui n'y est pas et ne fera pas parti du prochain commit.
+
+Pour voir ce qui va partir dans le prochain commit :
+\begin{lstlisting}
+git diff --cached
+\end{lstlisting}
+
+Pour voir ce que vous avez modifié depuis le dernier git add :
+\begin{lstlisting}
+git diff
+\end{lstlisting}
+
+~
+
+\question commit
+
+Deux façons de commiter : 
+\begin{enumerate}
+\item\begin{lstlisting}
+git commit -m "Vim Power, Bonjour Margueritte"
+\end{lstlisting}
+Dans ce cas là, le message passé entre guillemets formera le titre du commit, sans message.
+
+\item\begin{lstlisting}
+git commit
+\end{lstlisting}
+Un editeur de texte s'ouvre et vous pourrez renseigner le titre du commit sur la première ligne et le détail du commit à partir de la 3ème ligne.
+(\texttt{git log} permet de selectionner le titre ou le detail du commit)
+\end{enumerate}
+
+\begin{lstlisting}
+git log -1
+\end{lstlisting}
+et vous verrez le dernier commit avec les infos de base (identifiant du commit, auteur, date, titre et message de commit)
+
+oops, vous avez mis un message de commit pourri
+\begin{lstlisting}
+git commit --amend
+git commit --amend "un message de commit un peu mieux"
+\end{lstlisting}
+
+oops, j'ai oublié de commiter un fichier
+\begin{lstlisting}
+git add foo.txt
+git commit --amend
+\end{lstlisting}
+
+Attention, l'option \texttt{-{}-amend}, modifie l'historique
+Si vous avez fait un amend, faites un nouveau \texttt{git log -1} et vous verrez que l'identifiant du commit n'est plus le même.
+
+~
+
+\question grep
+
+C'est dans quel fichier que je me suis mis à parler de vache ?
+\begin{lstlisting}
+git grep vache
+\end{lstlisting}
+Par défaut, il cherche dans les fichiers indexés (tracked), il suffit d'ajouter --untracked pour chercher dans les fichiers non indexés.
+
+~
+
+\question log
+
+C'est dans quel commit que j'ai corrigé le bug 3615 ? Je sais que j'ai mis le numéro de bug dans le message de commit
+\begin{lstlisting}
+git log --grep 3615
+\end{lstlisting}
+
+C'est quoi les 10 derniers commits ?
+\begin{lstlisting}
+git log -10
+\end{lstlisting}
+et les 20 derniers ?
+\begin{lstlisting}
+git log -20
+\end{lstlisting}
+
+C'est dans quel commit où je me suis mis à parler de vache dans un des fichiers indexés ?
+\begin{lstlisting}
+git log -S vache
+\end{lstlisting}
+
+Il existe beaucoup d'autres options détaillées dans l'aide de la commande log
+\begin{lstlisting}
+git help log
+\end{lstlisting}
+entre autres :
+\begin{itemize}
+\item afficher les logs à partir/avant/entre certaines dates
+\item afficher seulement certaines infos (sha1 reduit + titre) \texttt{-{}-oneline}
+\item chercher par auteur \texttt{-{}-author}
+\item voir les noms des fichiers modifiés \texttt{-{}-name-only}
+\item voir les differences apportés -p
+\end{itemize}
+
+~
+
+\question branch et merge
+\begin{enumerate}
+\item cas simple
+Pour créer une branche, pour traiter un bug par exemple, sans déranger la branche master :
+\begin{lstlisting}
+git branch hotfix_3617
+\end{lstlisting}
+Cette commande ne fait que créer la branche, vous êtes toujours sur la branche master, pour vous en assurer :
+\begin{lstlisting}
+git branch # une petite etoile devant la branche courante
+git status # sur la premiere ligne, votre branche courante est indiquee.
+\end{lstlisting}
+
+Pour aller sur cette branche :
+\begin{lstlisting}
+git checkout hotfix_3617
+\end{lstlisting}
+
+La branche a été crée à partir de l'endroit où vous étiez.
+Fixez le bug en répondant à la 3ème question
+commitez le bugfix dans la branche hotfix\_3617
+\begin{lstlisting}
+git commit -am "bugfix 3617 : my boss could not figure that out"
+\end{lstlisting}
+
+Pour merger, on commence par aller dans la branche dans laquelle on veut merger, dans notre cas, on veut que la branche master contienne le bugfix 3617 :
+\begin{lstlisting}
+git checkout master
+\end{lstlisting}
+et on merge la branche qui contient le bugfix :
+\begin{lstlisting}
+git merge hotfix_3617
+\end{lstlisting}
+et voilà !
+
+L'opération de merge a fait un fast forward car il n'y a eu aucune modification sur la branche master à partir du moment où la branche hotfix\_3617 a été crée, le merge est donc trivial et consiste à déplacer le pointeur de branche master au niveau du pointeur de la branche hotfix\_3617
+
+~
+
+\item cas moins simple
+
+Voyons le cas du merge où il y a eu des modifications sur la branche dans laquelle on merge depuis que la branche mergée a été créée.
+
+Creation de la branche et positionnement sur cette branche, car je préfère taper une seule commande plutot que deux ( git branch + git checkout)
+\begin{lstlisting}
+git checkout -b wtf_sncf
+\end{lstlisting}
+le flag \texttt{-b} permet de creer la branche, la commande checkout permet de se rendre sur la branche.
+Répondez à la question 4, et commitez.
+
+Retournez dans la branche master
+\begin{lstlisting}
+git checkout master
+\end{lstlisting}
+Répondez à la question 5 et commitez (sur la branche master !)
+%
+pour voir la liste des branches qui n'ont pas encore été mergée sur la branche courante :
+\begin{lstlisting}
+git branch --no-merged
+\end{lstlisting}
+pratique pour savoir ce qu'il reste à merger, du coup on merge wtf\_sncf :
+\begin{lstlisting}
+git merge wtf_sncf
+\end{lstlisting}
+un editeur se lance pour que vous validiez le message du commit de merge, sauvegardez, quittez, le merge est fait.
+
+~
+
+\item cas avec un conflit
+
+\begin{itemize}
+\item On crée une branche
+\item On se déplace sur cette branche (bonus pour ceux qui font cette étape et la précédente en une commande)
+\item On répond à la question 6
+\item On commit
+\item On retourne sur la branche master
+\item On répond à la question 6 (une autre réponse)
+\item On commit 
+\item Et on merge la branche créée dans master.
+\end{itemize}
+
+~
+Si tout s'est bien passé, vous avez un conflit. Editez le fichier pour choisir la résolution (des marqueurs \texttt{<{}<{}<{}<{}<{}< ====== >{}>{}>{}>{}>{}>} sont présents pour aider à localiser le conflit), sauvegardez quittez.
+
+Pour marquer le fichier comme résolu auprès de git on fait un \texttt{git add}.
+
+Et on commit, le message de commit de merge indique les fichiers en conflits, vous pouvez indiquer comment vous avez résolu le conflit.
+
+~
+
+\item nettoyage des branches
+\begin{lstlisting}
+git branch -d le_nom_de_la_branche_a_effacer
+\end{lstlisting}
+Si la branche est déjà mergée dans la branche courante, l'opération est faite immédiatement. Si la branche n'est pas encore mergée, il faut mettre \texttt{-D} à la place de \texttt{-d}
+\end{enumerate}
+
+~
+
+\question rebase
+
+\begin{enumerate}
+\item rebase classique
+
+on crée une branche sans s'y positionner
+\begin{lstlisting}
+git branch test_rebase
+\end{lstlisting}
+Dans la branche master, on répond à la question 7, on commit.
+
+On va dans la branche test\_rebase
+\begin{lstlisting}
+git checkout test_rebase
+\end{lstlisting}
+on répond à la question 8, et on commit.
+
+Et on rebase.
+\begin{lstlisting}
+git rebase master
+\end{lstlisting}
+Pour rappel, le rebase de la branche courante sur la branche master va modifier les commits pour faire comme si vous aviez travaillez sur la branche master (pas de divergence dans l'historique).
+
+Du coup si on retourne dans master et que l'on merge on aura droit à un merge simple fast-forward
+\begin{lstlisting}
+git checkout master
+git merge test_rebase
+\end{lstlisting}
+
+\item rebase interactif
+
+L'idée est de reconstuire l'historique pour faire plein de choses exotiques, dans l'exemple que je donne je reste sobre et je me contente d'inverser les deux commits où l'on a répondu à la question 7 et à la question 8
+
+Tout d'abord il faut trouver l'identifiant du dernier commit que l'on ne veut pas toucher, si lors de la partie sur le rebase classique vous n'avez fait qu'un seul commit sur chaque branche (un sur master, un sur test\_rebase) le dernier commit peut se trouver de façon suivante :
+\begin{lstlisting}
+git log HEAD~2 -1
+\end{lstlisting}
+
+Explications :
+\begin{itemize}
+\item \texttt{log} : afficher les logs
+\item \texttt{HEAD\~{}2} : HEAD est le dernier commit et \~{}2 désigne le 2ème ancêtre, la notation \~{}n peut s'utiliser sur un nom de branche, un tag, un sha, on peut même faire HEAD\~{}1\~{}1 (équivalent à HEAD\~{}2)
+\item \texttt{-1} : n'afficher qu'un seul commit de résultat.
+\end{itemize}
+En résumé on n'affiche le 2ème ancêtre du dernier commit, soit le 3ème dernier commit.
+
+On passe l'identifiant du commit à rebase
+
+\begin{lstlisting}
+git rebase sha_du_commit
+\end{lstlisting}
+Pour info, on peut aussi passer à rebase l'expression utilisé dans la commande log :
+\begin{lstlisting}
+git rebase -i HEAD~2
+\end{lstlisting}
+Dans l'editeur de texte qui apparait, le plus ancien commit se situe sur la première ligne (ordre inversé par rapport à git log).
+
+Inversez les lignes 1 et 2, sauvegardez, quittez
+\begin{lstlisting}
+git log -3
+\end{lstlisting}
+Les deux derniers commits ont été inversés.
+
+Les options intéressantes du rebase sont :
+\begin{itemize}
+\item\texttt{fixup} : merger un commit dans le précédent en jetant le message de commit
+\item\texttt{squash} : pour merger plusieurs commits
+\item\texttt{edit} : pour s'arrêter sur un commit et le compléter.
+\end{itemize}
+\end{enumerate}
+
+~
+
+\question Rollback
+
+Pour défaire des commits, mais garder une trace dans l'historique.
+
+Mettons que l'on veuille defaire les 2 derniers commits :
+\begin{lstlisting}
+git revert HEAD~2..HEAD
+\end{lstlisting}
+l'editeur de texte se lance pour éditer le message de commit de revert pour chacun des commits à défaire
+
+~
+
+\question Travail avec un dépôt distant
+
+\begin{enumerate}
+\item Seul
+
+On va créer un dépôt distant... sur votre machine, le principe reste le même où qu'il se situe
+
+Mettez vous dans un répertoire qui n'est pas géré par git (ie: le répertoire parent de training\_git), et on fait un clone "nu" (\texttt{-{}-bare})
+\begin{lstlisting}
+git clone --bare training_git training_git_distant
+\end{lstlisting}
+un coup d'oeil dans training\_git\_distant, et vous verrez qu'il contient la même chose que training\_git/.git
+
+On retourne dans training\_git et on configure ce dépôt pour qu'il puisse accéder au dépôt distant :
+\begin{lstlisting}
+git remote add jupiter ../training_git_distant
+\end{lstlisting}
+ici jupiter est le nom que j'ai donné au dépôt distant.
+
+On peut lister les noms des dépôt distants déjà configurés avec :
+\begin{lstlisting}
+git remote show
+\end{lstlisting}
+Pour récupérer les dernières modifications de jupiter :
+\begin{lstlisting}
+git fetch jupiter
+\end{lstlisting}
+Que s'est il passé ?
+
+git a récupéré les branches disponibles sur jupiter dans votre dépôt local :
+\begin{lstlisting}
+git branch -a
+\end{lstlisting}
+Lorsque vous commitez, vous le faites dans vos branches locales, celles qui ne sont pas préfixés par le nom du remote.
+
+On répond à la question 9, on commit
+\begin{lstlisting}
+git log --oneline --decorate # On affiche l'historique en mettant les branches
+\end{lstlisting}
+La branche master de jupiter (jupiter/master) n'a pas bougé, c'est normal, avec git tout est local.
+
+Pour pousser la branche master local vers la branche master de jupiter :
+\begin{lstlisting}
+git push jupiter master:master
+\end{lstlisting}
+et jupiter a rattrapé son retard.
+
+dans master:master, le premier master correspond au nom local de la branche que l'on veut pousser, et le deuxième au nom distant.
+
+~
+
+\item collaboration
+jupiter/master est une branche pour laquelle vous avez une copie locale (master), si jamais jupiter/master est en avance par rapport à votre copie locale, il faudra la merger avant de pouvoir la pousser.
+
+
+Créons un clone du dépot distant dans lequel un martien va travailler (on se met au même niveau que training\_git\_distant)
+\begin{lstlisting}
+git clone training_git_distant training_git_martian
+\end{lstlisting}
+Et dans cette copie on répond à la question 10, on commit et on pousse.
+
+Petite subitlité, en clonant, le dépot origin est configuré pour pointer vers training\_git\_distant
+\begin{lstlisting}
+git push origin master:master
+\end{lstlisting}
+ou
+\begin{lstlisting}
+git push
+\end{lstlisting}
+Du coup, dans le repertoire de départ on peut récupérer les dernières modifications apportées par le dépot training\_git\_martian
+\begin{lstlisting}
+git fetch jupiter
+\end{lstlisting}
+A ce moment, les modifications ne sont pas encore visible sur les fichiers locaux mais ils sont présents sur le dépot local. Pour les récupérer :
+\begin{lstlisting}
+git merge jupiter/master
+\end{lstlisting}
+
+\item pousser une nouvelle branche vers le serveur
+Rien de bien différent par rapport à ce qui a déjà été fait, mettons que vous avez une branche "bug\_super\_con\_que\_mon\_collegue\_ne\_sait\_pas\_corriger", ça fait un peu tâche de pousser cette branche avec ce nom sur le serveur :
+\begin{lstlisting}
+git push jupiter bug_super_con_que_mon_collegue_ne_sait_pas_corriger:bugfix_offbyone
+\end{lstlisting}
+et la branche bugfix\_offbyone apparaitra sur le serveur.
+
+Le dépot training\_git verra la branche jupiter/bugfix\_offbyone après un git fetch et pourra se positionner dessus :
+\begin{lstlisting}
+git checkout jupiter/bugfix_offbyone
+\end{lstlisting}
+Cette commande a pour conséquence de créer la branche locale bugfix\_offbyone.
+
+\item Suppression des branches du serveur
+
+Supprimer une branche locale, ne la supprime pas du serveur. On supprime une branche du serveur en poussant le néant dans la branche distante :
+\begin{lstlisting}
+git push jupiter :bugfix_offbyone
+\end{lstlisting}
+Petite digression, on peut configurer des branches locales pour traquer des branches distantes (option \texttt{-{}-track} lors du checkout d'une branche d'un remote, ou option \texttt{-u} quand on pousse une branche locale vers un dépôt distant). Du coup ça permet de simplifimer la commande de push en ne spécifiant que la branche locale que l'on souhaite pousser. Si d'aventure vos doigts rippent et vous placez un ":" avant le nom de la branche locale, vous vous retrouvez à supprimer la branche du serveur :s Ce n'est pas perdu car votre branche locale est toujours présente, mais c'est à savoir :)
+\end{enumerate}
+
+
+\end{questions}
+
+\end{document}
