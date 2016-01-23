@@ -4,8 +4,8 @@ git config --global alias.ci commit
 git config --global alias.st status
 git config --global alias.br branch
 git config --global color.ui true
-git config --global user.name "John Doe"
-git config --global user.email johndoe@sixpack.burp
+git config --local user.name "John Doe"
+git config --local user.email johndoe@sixpack.burp
 
 
 1. status
@@ -171,7 +171,7 @@ HEAD~2 : HEAD est le dernier commit et ~2 désigne le 2ème ancêtre, la notatio
 -1 : n'afficher qu'un seul commit de résultat.
 En résumé on n'affiche le 2ème ancêtre du dernier commit, soit le 3ème dernier commit.
 On passe l'identifiant du commit à rebase
-git rebase <sha_du_commit_qui_ne_sera_pas_modifié_par_le_rebase>
+git rebase -i <sha_du_commit_qui_ne_sera_pas_modifié_par_le_rebase>
 Pour info, on peut aussi passer à rebase l'expression utilisé dans la commande log :
 git rebase -i HEAD~2
 Dans l'editeur de texte qui apparait, le plus ancien commit se situe sur la première ligne (ordre inversé par rapport à git log).

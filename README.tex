@@ -33,8 +33,8 @@ git config --global alias.ci commit
 git config --global alias.st status
 git config --global alias.br branch
 git config --global color.ui true
-git config --global user.name "John Doe"
-git config --global user.email johndoe@sixpack.burp
+git config --local user.name "John Doe"
+git config --local user.email johndoe@sixpack.burp
 \end{lstlisting}
 
 
@@ -121,7 +121,7 @@ C'est dans quel fichier que je me suis mis à parler de vache ?
 \begin{lstlisting}
 git grep vache
 \end{lstlisting}
-Par défaut, il cherche dans les fichiers indexés (tracked), il suffit d'ajouter --untracked pour chercher dans les fichiers non indexés.
+Par défaut, il cherche dans les fichiers indexés (tracked), il suffit d'ajouter \texttt{-{}-untracked} pour chercher dans les fichiers non indexés.
 
 ~
 
@@ -156,7 +156,7 @@ entre autres :
 \item afficher seulement certaines infos (sha1 reduit + titre) \texttt{-{}-oneline}
 \item chercher par auteur \texttt{-{}-author}
 \item voir les noms des fichiers modifiés \texttt{-{}-name-only}
-\item voir les differences apportés -p
+\item voir les differences apportés \texttt{-p}
 \end{itemize}
 
 ~
@@ -164,11 +164,11 @@ entre autres :
 \question branch et merge
 \begin{enumerate}
 \item cas simple
-Pour créer une branche, pour traiter un bug par exemple, sans déranger la branche master :
+  Pour créer une branche, pour traiter un bug par exemple, sans déranger la branche \emph{master} :
 \begin{lstlisting}
 git branch hotfix_3617
 \end{lstlisting}
-Cette commande ne fait que créer la branche, vous êtes toujours sur la branche master, pour vous en assurer :
+Cette commande ne fait que créer la branche, vous êtes toujours sur la branche \emph{master}, pour vous en assurer :
 \begin{lstlisting}
 git branch # une petite etoile devant la branche courante
 git status # sur la premiere ligne, votre branche courante est indiquee.
@@ -181,12 +181,12 @@ git checkout hotfix_3617
 
 La branche a été crée à partir de l'endroit où vous étiez.
 Fixez le bug en répondant à la 3ème question
-commitez le bugfix dans la branche hotfix\_3617
+commitez le bugfix dans la branche \emph{hotfix\_3617}
 \begin{lstlisting}
 git commit -am "bugfix 3617 : my boss could not figure that out"
 \end{lstlisting}
 
-Pour merger, on commence par aller dans la branche dans laquelle on veut merger, dans notre cas, on veut que la branche master contienne le bugfix 3617 :
+Pour merger, on commence par aller dans la branche dans laquelle on veut merger, dans notre cas, on veut que la branche \emph{master} contienne le bugfix 3617 :
 \begin{lstlisting}
 git checkout master
 \end{lstlisting}
@@ -196,7 +196,7 @@ git merge hotfix_3617
 \end{lstlisting}
 et voilà !
 
-L'opération de merge a fait un fast forward car il n'y a eu aucune modification sur la branche master à partir du moment où la branche hotfix\_3617 a été crée, le merge est donc trivial et consiste à déplacer le pointeur de branche master au niveau du pointeur de la branche hotfix\_3617
+L'opération de merge a fait un fast forward car il n'y a eu aucune modification sur la branche \emph{master} à partir du moment où la branche \emph{hotfix\_3617} a été crée, le merge est donc trivial et consiste à déplacer le pointeur de branche \emph{master} au niveau du pointeur de la branche \emph{hotfix\_3617}
 
 ~
 
@@ -208,14 +208,14 @@ Creation de la branche et positionnement sur cette branche, car je préfère tap
 \begin{lstlisting}
 git checkout -b wtf_sncf
 \end{lstlisting}
-le flag \texttt{-b} permet de creer la branche, la commande checkout permet de se rendre sur la branche.
+le flag \texttt{-b} permet de créer la branche, la commande checkout permet de se rendre sur la branche.
 Répondez à la question 4, et commitez.
 
-Retournez dans la branche master
+Retournez dans la branche \emph{master}
 \begin{lstlisting}
 git checkout master
 \end{lstlisting}
-Répondez à la question 5 et commitez (sur la branche master !)
+Répondez à la question 5 et commitez (sur la branche \emph{master} !)
 %
 pour voir la liste des branches qui n'ont pas encore été mergée sur la branche courante :
 \begin{lstlisting}
@@ -236,10 +236,10 @@ un editeur se lance pour que vous validiez le message du commit de merge, sauveg
 \item On se déplace sur cette branche (bonus pour ceux qui font cette étape et la précédente en une commande)
 \item On répond à la question 6
 \item On commit
-\item On retourne sur la branche master
+\item On retourne sur la branche \emph{master}
 \item On répond à la question 6 (une autre réponse)
 \item On commit 
-\item Et on merge la branche créée dans master.
+\item Et on merge la branche créée dans \emph{master.}
 \end{itemize}
 
 ~
@@ -269,7 +269,7 @@ on crée une branche sans s'y positionner
 \begin{lstlisting}
 git branch test_rebase
 \end{lstlisting}
-Dans la branche master, on répond à la question 7, on commit.
+Dans la branche \emph{master,} on répond à la question 7, on commit.
 
 On va dans la branche test\_rebase
 \begin{lstlisting}
@@ -281,9 +281,9 @@ Et on rebase.
 \begin{lstlisting}
 git rebase master
 \end{lstlisting}
-Pour rappel, le rebase de la branche courante sur la branche master va modifier les commits pour faire comme si vous aviez travaillez sur la branche master (pas de divergence dans l'historique).
+Pour rappel, le rebase de la branche courante sur la branche \emph{master} va modifier les commits pour faire comme si vous aviez travaillez sur la branche \emph{master} (pas de divergence dans l'historique).
 
-Du coup si on retourne dans master et que l'on merge on aura droit à un merge simple fast-forward
+Du coup si on retourne dans \emph{master} et que l'on merge on aura droit à un merge simple fast-forward
 \begin{lstlisting}
 git checkout master
 git merge test_rebase
@@ -293,7 +293,7 @@ git merge test_rebase
 
 L'idée est de reconstuire l'historique pour faire plein de choses exotiques, dans l'exemple que je donne je reste sobre et je me contente d'inverser les deux commits où l'on a répondu à la question 7 et à la question 8
 
-Tout d'abord il faut trouver l'identifiant du dernier commit que l'on ne veut pas toucher, si lors de la partie sur le rebase classique vous n'avez fait qu'un seul commit sur chaque branche (un sur master, un sur test\_rebase) le dernier commit peut se trouver de façon suivante :
+Tout d'abord il faut trouver l'identifiant du dernier commit que l'on ne veut pas toucher, si lors de la partie sur le rebase classique vous n'avez fait qu'un seul commit sur chaque branche (un sur \emph{master,} un sur test\_rebase) le dernier commit peut se trouver de façon suivante :
 \begin{lstlisting}
 git log HEAD~2 -1
 \end{lstlisting}
@@ -309,7 +309,7 @@ En résumé on n'affiche le 2ème ancêtre du dernier commit, soit le 3ème dern
 On passe l'identifiant du commit à rebase
 
 \begin{lstlisting}
-git rebase sha_du_commit
+git rebase -i sha_du_commit
 \end{lstlisting}
 Pour info, on peut aussi passer à rebase l'expression utilisé dans la commande log :
 \begin{lstlisting}
@@ -384,20 +384,20 @@ On répond à la question 9, on commit
 \begin{lstlisting}
 git log --oneline --decorate # On affiche l'historique en mettant les branches
 \end{lstlisting}
-La branche master de jupiter (jupiter/master) n'a pas bougé, c'est normal, avec git tout est local.
+La branche \emph{master} de jupiter (\emph{jupiter/master}) n'a pas bougé, c'est normal, avec git tout est local.
 
-Pour pousser la branche master local vers la branche master de jupiter :
+Pour pousser la branche \emph{master} local vers la branche \emph{master} de jupiter :
 \begin{lstlisting}
 git push jupiter master:master
 \end{lstlisting}
 et jupiter a rattrapé son retard.
 
-dans master:master, le premier master correspond au nom local de la branche que l'on veut pousser, et le deuxième au nom distant.
+dans \texttt{master:master}, le premier \emph{master} correspond au nom local de la branche que l'on veut pousser, et le deuxième au nom distant.
 
 ~
 
 \item collaboration
-jupiter/master est une branche pour laquelle vous avez une copie locale (master), si jamais jupiter/master est en avance par rapport à votre copie locale, il faudra la merger avant de pouvoir la pousser.
+  \emph{jupiter/master} est une branche pour laquelle vous avez une copie locale (\emph{master}), si jamais \emph{jupiter/master} est en avance par rapport à votre copie locale, il faudra la merger avant de pouvoir la pousser.
 
 
 Créons un clone du dépot distant dans lequel un martien va travailler (on se met au même niveau que training\_git\_distant)
@@ -424,7 +424,7 @@ git merge jupiter/master
 \end{lstlisting}
 
 \item pousser une nouvelle branche vers le serveur
-Rien de bien différent par rapport à ce qui a déjà été fait, mettons que vous avez une branche "bug\_super\_con\_que\_mon\_collegue\_ne\_sait\_pas\_corriger", ça fait un peu tâche de pousser cette branche avec ce nom sur le serveur :
+  Rien de bien différent par rapport à ce qui a déjà été fait, mettons que vous avez une branche \emph{bug\_super\_con\_que\_mon\_collegue\_ne\_sait\_pas\_corriger}, ça fait un peu tâche de pousser cette branche avec ce nom sur le serveur :
 \begin{lstlisting}
 git push jupiter bug_super_con_que_mon_collegue_ne_sait_pas_corriger:bugfix_offbyone
 \end{lstlisting}
