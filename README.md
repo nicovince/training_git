@@ -123,11 +123,11 @@ entre autres :
 
 ## branch et merge
 ### cas simple
-Pour créer une branche, pour traiter un bug par exemple, sans déranger la branche master :
+Pour créer une branche, pour traiter un bug par exemple, sans déranger la branche main :
 ```
 git branch hotfix_3617
 ```
-Cette commande ne fait que créer la branche, vous êtes toujours sur la branche master, pour vous en assurer :
+Cette commande ne fait que créer la branche, vous êtes toujours sur la branche main, pour vous en assurer :
 ```
 git branch # une petite étoile devant la branche courante
 git status # sur la première ligne, votre branche courante est indiquée.
@@ -145,16 +145,16 @@ commitez le bugfix dans la branche hotfix_3617
 git commit -am "bugfix 3617 : my boss could not figure that out"
 ```
 
-Pour merger, on commence par aller dans la branche dans laquelle on veut merger, dans notre cas, on veut que la branche master contienne le bugfix 3617 :
+Pour merger, on commence par aller dans la branche dans laquelle on veut merger, dans notre cas, on veut que la branche main contienne le bugfix 3617 :
 ```
-git checkout master
+git checkout main
 ```
 et on merge la branche qui contient le bugfix :
 ```
 git merge hotfix_3617
 ```
 et voilà !
-L'opération de merge a fait un fast forward car il n'y a eu aucune modification sur la branche master à partir du moment où la branche hotfix_3617 a été crée, le merge est donc trivial et consiste à déplacer le pointeur de branche master au niveau du pointeur de la branche hotfix_3617
+L'opération de merge a fait un fast forward car il n'y a eu aucune modification sur la branche main à partir du moment où la branche hotfix_3617 a été crée, le merge est donc trivial et consiste à déplacer le pointeur de branche main au niveau du pointeur de la branche hotfix_3617
 
 
 ### cas moins simple
@@ -166,11 +166,11 @@ git checkout -b wtf_sncf
 le flag `-b` permet de creer la branche, la commande checkout permet de se rendre sur la branche.
 Répondez à la question 4, et commitez.
 
-Retournez dans la branche master
+Retournez dans la branche main
 ```
-git checkout master
+git checkout main
 ```
-Répondez à la question 5 et commitez (sur la branche master !)
+Répondez à la question 5 et commitez (sur la branche main !)
 
 pour voir la liste des branches qui n'ont pas encore été mergée sur la branche courante :
 ```
@@ -187,10 +187,10 @@ On crée une branche
 On se déplace sur cette branche (bonus pour ceux qui font cette étape et la précédente en une commande)
 On répond à la question 6
 On commit
-On retourne sur la branche master
+On retourne sur la branche main
 On répond à la question 6 (une autre réponse)
 On commit
-Et on merge la branche créée dans master.
+Et on merge la branche créée dans main.
 
 Si tout s'est bien passé, vous avez un conflit. Editez le fichier pour choisir la résolution (des marqueurs `<<<<<<`, `======`, `>>>>>>` sont présents pour aider à localiser le conflit), sauvegardez quittez.
 Pour marquer le fichier comme résolu auprès de git on fait un `git add`.
@@ -210,26 +210,26 @@ on crée une branche sans s'y positionner
 ```
 git branch test_rebase
 ```
-Dans la branche master, on répond à la question 7, on commit.
+Dans la branche main, on répond à la question 7, on commit.
 On va dans la branche test_rebase
 ```
 git checkout test_rebase et on répond à la question 8, et on commit.
 ```
 Et on rebase.
 ```
-git rebase master
+git rebase main
 ```
-Pour rappel, le rebase de la branche courante sur la branche master va modifier les commits pour faire comme si vous aviez travaillez sur la branche master (pas de divergence dans l'historique).
-Du coup si on retourne dans master et que l'on merge on aura droit à un merge simple fast-forward
+Pour rappel, le rebase de la branche courante sur la branche main va modifier les commits pour faire comme si vous aviez travaillez sur la branche main (pas de divergence dans l'historique).
+Du coup si on retourne dans main et que l'on merge on aura droit à un merge simple fast-forward
 ```
-git checkout master
+git checkout main
 git merge test_rebase
 ```
 
 ### rebase interactif
 L'idée est de reconstuire l'historique pour faire plein de choses exotiques, dans l'exemple que je donne je reste sobre et je me contente d'inverser les deux commits où l'on a répondu à la question 7 et à la question 8.
 
-Tout d'abord il faut trouver l'identifiant du dernier commit que l'on ne veut pas toucher, si lors de la partie sur le rebase classique vous n'avez fait qu'un seul commit sur chaque branche (un sur master, un sur test_rebase) le dernier commit peut se trouver de façon suivante :
+Tout d'abord il faut trouver l'identifiant du dernier commit que l'on ne veut pas toucher, si lors de la partie sur le rebase classique vous n'avez fait qu'un seul commit sur chaque branche (un sur main, un sur test_rebase) le dernier commit peut se trouver de façon suivante :
 ```
 git log HEAD~2 -1
 ```
@@ -302,17 +302,17 @@ On répond à la question 9, on commit
 ```
 git log --oneline --decorate # On affiche l'historique en mettant les branches
 ```
-La branche master de jupiter (jupiter/master) n'a pas bougé, c'est normal, avec git tout est local.
-Pour pousser la branche master local vers la branche master de jupiter :
+La branche main de jupiter (jupiter/main) n'a pas bougé, c'est normal, avec git tout est local.
+Pour pousser la branche main local vers la branche main de jupiter :
 ```
-git push jupiter master:master
+git push jupiter main:main
 ```
 et jupiter a rattrapé son retard.
-dans master:master, le premier master correspond au nom local de la branche que l'on veut pousser, et le deuxième au nom distant.
+dans main:main, le premier main correspond au nom local de la branche que l'on veut pousser, et le deuxième au nom distant.
 
 
 ### collaboration
-jupiter/master est une branche pour laquelle vous avez une copie locale (master), si jamais jupiter/master est en avance par rapport à votre copie locale, il faudra la merger avant de pouvoir la pousser.
+jupiter/main est une branche pour laquelle vous avez une copie locale (main), si jamais jupiter/main est en avance par rapport à votre copie locale, il faudra la merger avant de pouvoir la pousser.
 
 
 Créons un clone du dépot distant dans lequel un martien va travailler (on se met au même niveau que `training_git_distant`)
@@ -323,7 +323,7 @@ Et dans cette copie on répond à la question 10, on commit et on pousse.
 
 Petite subitlité, en clonant, le dépot origin est configuré pour pointer vers `training_git_distant`
 ```
-git push origin master:master
+git push origin main:main
 # ou
 git push
 ```
@@ -333,7 +333,7 @@ git fetch jupiter
 ```
 A ce moment, les modifications ne sont pas encore visible sur les fichiers locaux mais ils sont présents sur le dépot local. Pour les récupérer :
 ```
-git merge jupiter/master
+git merge jupiter/main
 ```
 
 ### pousser une nouvelle branche vers le serveur
