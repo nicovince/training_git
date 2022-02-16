@@ -10,6 +10,12 @@ git config --local user.name "John Doe"
 git config --local user.email johndoe@sixpack.burp
 ```
 
+## Telechargement du TP
+```
+git clone https://github.com/nicovince/training_git
+cd training_git
+git remote remove origin
+```
 
 ## status
 
