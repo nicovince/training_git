@@ -220,6 +220,7 @@ git branch test_rebase
 ```
 
 Dans la branche `main`, on répond à la question 7, on commit.
+
 On va dans la branche `test_rebase`
 ```
 git checkout test_rebase
@@ -313,17 +314,20 @@ git a récupéré les branches disponibles sur `jupiter` dans votre dépôt loca
 git branch -a
 ```
 Lorsque vous commitez, vous le faites dans vos branches locales, celles qui ne sont pas préfixés par le nom du remote.
+
 On répond à la question 9, on commit
 ```
-git log --oneline --decorate # On affiche l'historique en mettant les branches
+git log --oneline # On affiche l'historique de manière condensé avec uniquement les titres des messages de commit
 ```
 La branche `main` de `jupiter` (`jupiter/main`) n'a pas bougé, c'est normal, avec git tout est local.
+
 Pour pousser la branche main local vers la branche main de `jupiter` :
 ```
 git push jupiter main:main
 ```
 et `jupiter` a rattrapé son retard.
-dans `main:main`, le premier main correspond au nom local de la branche que l'on veut pousser, et le deuxième au nom distant.
+
+Dans `main:main`, le premier main correspond au nom local de la branche que l'on veut pousser, et le deuxième au nom distant.
 
 
 ### collaboration
@@ -363,14 +367,14 @@ git checkout jupiter/bugfix_offbyone
 qui a pour conséquence de se mettre sur l'état de la branche `jupiter/bugfix_offbyone`, vous n'êtes pas sur une branche, mais en mode _détaché_.
 
 ### Suppression des branches du serveur
-Supprimer une branche locale, ne la supprime pas du serveur, pour la supprimer c'est à travers `push` que l'on réalise cette opération:
+Supprimer une branche locale, ne la supprime pas du serveur, c'est à travers `push` que l'on réalise cette opération:
 ```
 git push -d jupiter bugfix_offbyone
 ```
 
-La syntaxe d'effacement des branches consistait à pousser le néant dans une branche distante:
+Il y a une dizaines d'années, la syntaxe d'effacement des branches consistait à pousser le néant dans une branche distante:
 ```
 git push jupiter :bugfix_offbyone
 ```
 
-Petite digression, on peut configurer des branches locales pour traquer des branches distantes (option `--track` lors du checkout d'une branche d'un remote, ou option `-u` quand on pousse une branche locale vers un dépôt distant).Ca permet de simplifier la commande de push en ne spécifiant que la branche locale que l'on souhaite pousser. Si d'aventure vos doigts rippent et vous placez un ":" avant le nom de la branche locale, vous vous retrouvez à supprimer la branche du serveur :s Ce n'est pas perdu car votre branche locale est toujours présente, mais c'est à savoir :)
+Petite digression, on peut configurer des branches locales pour traquer des branches distantes (option `--track` lors du checkout d'une branche d'un remote, ou option `-u` quand on pousse une branche locale vers un dépôt distant). Ca permet de simplifier la commande de push en ne spécifiant que la branche locale que l'on souhaite pousser. Si d'aventure vos doigts rippent et vous placez un ":" avant le nom de la branche locale, vous vous retrouvez à supprimer la branche du serveur :s Ce n'est pas perdu car votre branche locale est toujours présente, mais c'est à savoir :)

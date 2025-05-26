@@ -10,7 +10,7 @@
 4. Le chef de cabine de mon TGV nous annonce que notre train a pris du retard à cause d'une personne à mobilité réduite qui a eu du mal à descendre au creusot-TGV. J'ai l'impression que la SNCF aime tirer sur les personnes à terre :s Vous en pensez quoi ? (à repondre dans la branche wtf_sncf)
 ->
 
-5. Vous utilisez quoi comme système d'exploitation ? (à répondre dans la branche master)
+5. Vous utilisez quoi comme système d'exploitation ? (à répondre dans la branche main)
 ->
 
 6. C'est quoi une bonne idée de cadeau pour ses beaux-parents ? (à répondre dans deux branches différentes)
